@@ -4,9 +4,8 @@
 
 | Nama | NIM | Kontribusi |
 |---|---|---|
-| [nama 1] | [nim] | [pitfall/bagian yang dikerjakan] |
+| [naufal luthfi muzakki] | [103072400137] | [pitfall/bagian yang dikerjakan] |
 | [nama 2] | [nim] | [pitfall/bagian yang dikerjakan] |
-| [nama 3] | [nim] | [pitfall/bagian yang dikerjakan] |
 
 ## Pitfall 1: [nama pitfall] — ditulis oleh [nama]
 
