@@ -24,14 +24,29 @@
 
 ## Pitfall 2: [nama pitfall] — ditulis oleh [nama]
 
-(ulangi struktur di atas)
+**Bukti di skenario:** [kutip/paraphrase bagian skenario]
+
+**Kenapa ini keliru:** [penjelasan]
+
+**Dampak ke FoodGo:** [mekanisme kegagalan konkret]
+
+**Solusi desain awal:** [usulan solusi]
+
+**Trade-off:** [apa yang dikorbankan/risiko dari solusi ini]
 
 ---
 
 ## Pitfall 3: [nama pitfall] — ditulis oleh [nama]
 
-(ulangi struktur di atas)
+**Bukti di skenario:** [kutip/paraphrase bagian skenario]
 
+**Kenapa ini keliru:** [penjelasan]
+
+**Dampak ke FoodGo:** [mekanisme kegagalan konkret]
+
+**Solusi desain awal:** [usulan solusi]
+
+**Trade-off:** [apa yang dikorbankan/risiko dari solusi ini]
 ---
 
 ## Kesimpulan Kelompok
