@@ -63,3 +63,16 @@ Tugas ini memakai kebijakan **Level 2 (AI Assisted Idea Generation & Structuring
 
 Karena tugas ini murni analisis (rawan sekadar salin-tempel dari AI), verifikasi tambahan yang berlaku:
 - Setiap pitfall harus dikaitkan dengan **kalimat spesifik** dari skenario di atas — jawaban generik yang bisa dipakai untuk skenario apa saja akan dinilai rendah pada komponen kedalaman analisis.
+
+
+## Pitfall 1: [Sudah pasti jaringan tidak selalu ada] — ditulis oleh [luthfi]
+
+**Bukti di skenario:** [`# network is always reliable]
+
+**Kenapa ini keliru:** [penjelasan: karena pada jaringan yang trsidtribusi sangat tidak mungkin bahwa jaringan akan selalu ada, pasti akan terdapat paket loss dalam bentuk apapun itu bisa jadi kneksi tiba tiba hilang atau yang lainnya ]
+
+**Dampak ke FoodGo:** [dampkanya pada saat terdapat transaksi dengan pelanggan akan terjadi gannguan jaringan yang berakibat kegagalan dalam transakasi, yang dimana misal pelanggan refresh atau retry akan berhasil dan sumber masalahnya hanya karena jaringan]
+
+**Solusi desain awal:** [kasih tombol refresh dan pop up pembayaran gagal untuk mencegah semungkinan pelanggan gagal payout tapi ternyata di foodgo malah udah masuk ]
+
+**Trade-off:** [resikonya tagihannya bisa jadi double]
