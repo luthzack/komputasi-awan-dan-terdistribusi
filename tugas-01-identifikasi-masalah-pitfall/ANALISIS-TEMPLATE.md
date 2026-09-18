@@ -50,5 +50,4 @@
 ---
 
 ## Kesimpulan Kelompok
-
-[Ringkasan: jika FoodGo memperbaiki ketiga pitfall ini, apa arsitektur yang disarankan secara garis besar? Kaitkan dengan Tugas 2.]
+Dari 3 pitfall yang kami tulis diatas, kalau tim engineering FoodGo menerapkan solusi desain kami mungkin arsitektur yang cocok adalah arsitektur Microservices, karena dengan memisahkan modul-modul yang berat server dari FoodGo dapat mengurangi beban yang berlebihan pada server utama, selain itu juga akan memudahkan FoodGo untuk mengatur resource setiap modul service yang terpisah dan meminimalisir terjadinya hal yang tidak diinginkan (Server backend crash total, aplikasi jadi lambat serta pembayaran yang tidak kunjung selesai), namun akan ada tantangan seperti kompleksitasnya meningkat untuk mengatur komunikasi antar modul service.

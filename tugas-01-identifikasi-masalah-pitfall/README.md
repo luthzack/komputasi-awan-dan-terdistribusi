@@ -91,3 +91,19 @@ Karena tugas ini murni analisis (rawan sekadar salin-tempel dari AI), verifikasi
 **Trade-off:** Pembayaran yang bisa diproses pada detik ke 6 akan otomatis timeout, waktu timeout bisa jadi terlalu cepat dan kurang cocok dari segi server jadi harus dicari waktu timeout yang tepat, sistem retry backoff dapat menyebabkan duplikasi request pemanggilan modul dan bisa menambah beban server modul pembayaran karena request masuk terus (sesuai dengan jumlah retrynya)
 
 ---
+## Pitfall 3: [Single Point of Failure karena Arsitektur Monolitik] — ditulis oleh [luthfi & ro'yul]
+
+**Bukti di skenario:**  Saat trafik naik, satu server yang menangani semua modul (pesanan, pembayaran, notifikasi kurir) kewalahan karena semuanya berjalan di satu proses monolitik yang sama
+
+**Kenapa ini keliru:** penjelasan: karena aristektur monolitik ini yang dimana artinya mereka berbagi dalam satu proses CPU, memori, dan thread pool yang sama akan membebani kinerja server dan juga ini tidak sesuai dengan prinsip skalabilitas yang dimana sebaiknya dibagi menjadi setiap modulnya tersendiri tanpa mengganggu modul lainnya
+
+**Dampak ke FoodGo:** dampaknya jika masih menggunakan arsitektur monolitik foodgo pada setiap modul akan terganggu satu sama lain, karena berjalan pada satu sistem yang sama ketika terjadi gangguan pada suatu proses (misal pembayaran atau notifikasi kurir ) dapat terjadi kelambatan pada server hingga worst casenya adalah crash total pada seluruh apk foodgo 
+
+**Solusi desain awal:** Berdasarkan analisis diatas itu semua modulnya dijalankan pada 1 server, solusi yang saya berikan adalah memindahkan modul-modul yang ada pada 1 server itu menjadi sebuah modul service yang terpisah, jadi setiap modul dideploy sendiri-sendiri yang akan mempermudah peningkatan resource server sesuai dengan kebutuhan modulnya, sehingga server utama aplikasi FoodGo tidak akan mengalami crash
+
+**Trade-off:** Proses pemisahan modul service akan meningkatkan kinerja aplikasi dan mengurangi kelambatan, namun kompleksitas kodenya akan menjadi tinggi mulai dari mengurus komunikasi antar modul service, penanganan antara modul service kalau gagal terhubung, penaganan timeout, pemantauan kelancaran sistem dan lain-lain.
+
+---
+
+## Kesimpulan Kelompok
+Dari 3 pitfall yang kami tulis diatas, kalau tim engineering FoodGo menerapkan solusi desain kami mungkin arsitektur yang cocok adalah arsitektur Microservices, karena dengan memisahkan modul-modul yang berat server dari FoodGo dapat mengurangi beban yang berlebihan pada server utama, selain itu juga akan memudahkan FoodGo untuk mengatur resource setiap modul service yang terpisah dan meminimalisir terjadinya hal yang tidak diinginkan (Server backend crash total, aplikasi jadi lambat serta pembayaran yang tidak kunjung selesai), namun akan ada tantangan seperti kompleksitasnya meningkat untuk mengatur komunikasi antar modul service.
