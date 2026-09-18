@@ -7,17 +7,17 @@
 | Naufal Luthfi Muzakki | [103072400137] | [1] |
 | Nur Ro'yul Amin | [103072400159] | [2] |
 
-## Pitfall 1: [Sudah pasti jaringan tidak selalu ada] — ditulis oleh [Luthfi]
+## Pitfall 1: [Network Is Realible] — ditulis oleh [Luthfi]
 
 **Bukti di skenario:** "`# network is always reliable"
 
 **Kenapa ini keliru:** penjelasan: karena pada jaringan yang trsidtribusi sangat tidak mungkin bahwa jaringan akan selalu ada, pasti akan terdapat paket loss dalam bentuk apapun itu bisa jadi kneksi tiba tiba hilang atau yang lainnya 
 
-**Dampak ke FoodGo:** dampkanya pada saat terdapat transaksi dengan pelanggan akan terjadi gannguan jaringan yang berakibat kegagalan dalam transakasi, yang dimana misal pelanggan melakukan refresh atau retry transaksi "mungkin" akan berhasil dan sumber masalahnya hanya karena jaringan yang tiba tiba hilang
+**Dampak ke FoodGo:** dampkanya pada saat terdapat transaksi dengan pelanggan bisa terjadi gannguan jaringan yang berakibat kegagalan dalam transakasi, yang dimana misal pelanggan melakukan refresh atau retry transaksi "mungkin" akan berhasil dan sumber masalahnya hanya karena jaringan yang tiba tiba hilang
 
-**Solusi desain awal:** kasih fiur tombol refresh dan pop up pembayaran gagal untuk mencegah kemungkinan pelanggan gagal payout tapi ternyata di foodgo malah udah masuk 
+**Solusi desain awal:** kasih fiur tombol refreshdalam refresh dan pop up pembayaran gagal untuk mencegah kemungkinan pelanggan gagal payout tapi ternyata di foodgo malah udah masuk 
 
-**Trade-off:** resikonya tagihannya bisa jadi double
+**Trade-off:** resikonya adalah tagihan yang akan dibayar oleh pelanggan bisa jadi double dan juga request ke sever bisa membeludak akibat refresh terlalu banyak oleh pelanggan
 
 ---
 

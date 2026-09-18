@@ -65,7 +65,7 @@ Karena tugas ini murni analisis (rawan sekadar salin-tempel dari AI), verifikasi
 - Setiap pitfall harus dikaitkan dengan **kalimat spesifik** dari skenario di atas — jawaban generik yang bisa dipakai untuk skenario apa saja akan dinilai rendah pada komponen kedalaman analisis.
 
 
-## Pitfall 1: [Sudah pasti jaringan tidak selalu ada] — ditulis oleh [Luthfi]
+## Pitfall 1: [Network Is Realible] — ditulis oleh [Luthfi]
 
 **Bukti di skenario:** "`# network is always reliable"
 
