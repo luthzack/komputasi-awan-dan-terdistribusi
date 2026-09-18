@@ -27,4 +27,6 @@
 | Tanggal | Tool AI | Prompt yang diberikan | Ringkasan saran/ide AI | Bagaimana diolah jadi tulisan/kode sendiri |
 |---|---|---|---|---|
 | 17 September 2026 | Claude Sonnet | Pada tugas tersebut, jelaskan apa goals utama yang diinginkan oleh tugas tanpa memberi tahu saya jawabannya, namun berikan poin-poin penting yang dapat saya perhatikan dalam mengerjakan tugas ini. | Claude membantu saya (Luthfi) dalam memahami soal dan pitfall-pitfall utama. | Tidak ada, karena hanya digunakan untuk memahami tujuan dan poin-poin penting dari tugas. | 
-| | | | |
+| 17 September 2026 | ChatGPT | Coba jelaskan apa itu secara singkat konsep dari 8 fallacies of distributed computing | GPT memberikan saya penjelasan untuk setiap 8 fallacies secara singkat bagaimana konsepnya | Saya melihat bahwa latency is zero konsepnya cocok dengan laporan pengujian tim FoodGo bagian "tidak ada timeout sama sekali pada bagian service" sedangkan di laporan lain ada timeout yang berarti kode bagian service itu aneh
+| 18 September 2026 | DeepSeek | Berikan 5 contoh arsitektur jaringan terdistribusi dengan contoh penerapannya | Ai memberikan 5 arsitektur(Client-Server, Three-Tier, Microservice, P2P, Event-Driven) dan penerapannya | Disini saya melihat ada poin pemecahan sistem menjadi sebuah service terpisah pada penjelasan AI bagian microservices, dan ini akan menjadi sebuah arsitektur yang cocok untuk case FoodGo selain itu saya melihat contoh di README.md yang mengatakan pemisahan modul service dan itu adalah konsep dari arsitektur Microservices.
+|||||
