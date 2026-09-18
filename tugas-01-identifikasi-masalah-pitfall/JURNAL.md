@@ -19,7 +19,7 @@
 - [luthfi] mengomentari analisis [ro'yul]: garis besarnya pitfall yang diambil hampir mirip antara network is realible sama latency is zero.
 - [Ro'yul] Mengomentari analisis [Luthfi]: Pada nomor 1 tradeoff nya tidak jelas ditunjukkan kesiapa awalmya dan bukan ke FoodGo.
 - [Ro'yul] Mengomentari analisis [Luthfi]: Pada nomor 3 Bagian "Kenapa ini keliru" dan "Dampak Ke FoodGo" itu kalimatnya agak kurang jelas mengarah crash/error ke bagian mananya.  
-
+- [luthfi] mengomentari analisis [ro'yul]: pedapat pribadi untuk waktu peberian timeout pada pitfall 2 mungki aga terlalu lama jika 10 detik jadi mungkin bisa direndahin dikit mas, 5 detik mungkin?
 ## Log Penggunaan AI (Level 2)
 
 > Wajib diisi sesuai kebijakan Level 2 di [`../RUBRIK-UMUM.md`](../RUBRIK-UMUM.md). Tulis "Tidak memakai AI" pada baris pertama jika memang tidak dipakai. Hanya untuk brainstorming ide/outline — bukan untuk kode/analisis/teks akhir.
