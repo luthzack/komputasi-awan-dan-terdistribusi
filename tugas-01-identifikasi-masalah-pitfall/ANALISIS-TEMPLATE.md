@@ -4,8 +4,8 @@
 
 | Nama | NIM | Kontribusi |
 |---|---|---|
-| Naufal Luthfi Muzakki | [103072400137] | [1] |
-| Nur Ro'yul Amin | [103072400159] | [2] |
+| Naufal Luthfi Muzakki | [103072400137] | [1 & 3] |
+| Nur Ro'yul Amin | [103072400159] | [2 & 3] |
 
 ## Pitfall 1: [Network Is Realible] — ditulis oleh [Luthfi]
 
@@ -35,13 +35,13 @@
 
 ---
 
-## Pitfall 3: [nama pitfall] — ditulis oleh [nama]
+## Pitfall 3: [Single Point of Failure karena Arsitektur Monolitik] — ditulis oleh [luthfi & ro'yul]
 
-**Bukti di skenario:** [kutip/paraphrase bagian skenario]
+**Bukti di skenario:**  Saat trafik naik, satu server yang menangani semua modul (pesanan, pembayaran, notifikasi kurir) kewalahan karena semuanya berjalan di satu proses monolitik yang sama
 
-**Kenapa ini keliru:** [penjelasan]
+**Kenapa ini keliru:** penjelasan: karena aristektur monolitik ini yang dimana artinya mereka berbagi dalam satu proses CPU, memori, dan thread pool yang sama akan membebani kinerja server dan juga ini tidak sesuai dengan prinsip skalabilitas yang dimana sebaiknya dibagi menjadi setiap modulnya tersendiri tanpa mengganggu modul lainnya
 
-**Dampak ke FoodGo:** [mekanisme kegagalan konkret]
+**Dampak ke FoodGo:** dampaknya jika masih menggunakan arsitektur monolitik foodgo pada setiap modul akan terganggu satu sama lain, karena berjalan pada satu sistem yang sama ketika terjadi gangguan pada suatu proses (misal pembayaran atau notifikasi kurir ) dapat terjadi kelaambatan pada server hingga worst casenya adalah crash total pada seluruh apk foodgo 
 
 **Solusi desain awal:** [usulan solusi]
 
