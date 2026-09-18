@@ -2,24 +2,21 @@
 
 > Isi jurnal ini selama proses diskusi berlangsung, bukan ditulis ulang rapi di akhir. Tulis dengan gaya bebas — poin diskusi, kebuntuan, perubahan pikiran.
 
-## [Tanggal Diskusi: 17 September 2026]
-- Peserta: Luthfi & Ro'yul
-- Poin diskusi:
- 1.Memahami Case yang diberikan,
- 2.Menentukan ada berapa pitfall pada laporan "Tim menemukan bahwa kode mereka menulis asumsi seperti `# network is always reliable, no need for retry` dan tidak ada timeout sama sekali pada pemanggilan antar service" 
-
-- Perbedaan pendapat (jika ada): pada poin 2 awalnya Luthfi bilang hanya ada 1, namun setelah berdiskusi akhirnya ditentukan ada 2 pitfall
+## [Tanggal diskusi 1]
+- Peserta: [nama-nama yang hadir]
+- Poin diskusi: ...
+- Perbedaan pendapat (jika ada): ...
 
 ## [Tanggal diskusi 2]
 - ...
 
 ## Review Silang
-- [Nama] mengomentari analisis [Nama lain]: ...
+- [luthfi] mengomentari analisis [ro'yul]: garis besarnya pitfall yang diambil hampir mirip antara network is realible sama latency is zero gokil wkwk
 
 ## Log Penggunaan AI (Level 2)
 
 > Wajib diisi sesuai kebijakan Level 2 di [`../RUBRIK-UMUM.md`](../RUBRIK-UMUM.md). Tulis "Tidak memakai AI" pada baris pertama jika memang tidak dipakai. Hanya untuk brainstorming ide/outline — bukan untuk kode/analisis/teks akhir.
 
 | Tanggal | Tool AI | Prompt yang diberikan | Ringkasan saran/ide AI | Bagaimana diolah jadi tulisan/kode sendiri |
-|---|---|---|---|---|
+|17 - September - 2026|Claude sonnet|pada tugas tersebut jelaskan pada apa goals utamna yang diinginkan oleh tugas tanpa memberi tahu saya jawabannya namun berikan point point penting yang dapat saya perhatikan dalam mengerjakan tugas ini|ringkasannya claude membantu saya(luthfi) dalam memahami soal dan pitfall pitfall utama|tidak ada karena hanya menggunakan untuk tanya tujuan sama point penting dari tugas|
 | ... | ... | ... | ... | ... |

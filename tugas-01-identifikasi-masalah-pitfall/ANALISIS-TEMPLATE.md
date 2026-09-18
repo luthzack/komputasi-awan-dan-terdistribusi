@@ -13,9 +13,9 @@
 
 **Kenapa ini keliru:** penjelasan: karena pada jaringan yang trsidtribusi sangat tidak mungkin bahwa jaringan akan selalu ada, pasti akan terdapat paket loss dalam bentuk apapun itu bisa jadi kneksi tiba tiba hilang atau yang lainnya 
 
-**Dampak ke FoodGo:** dampkanya pada saat terdapat transaksi dengan pelanggan akan terjadi gannguan jaringan yang berakibat kegagalan dalam transakasi, yang dimana misal pelanggan refresh atau retry akan berhasil dan sumber masalahnya hanya karena jaringan
+**Dampak ke FoodGo:** dampkanya pada saat terdapat transaksi dengan pelanggan akan terjadi gannguan jaringan yang berakibat kegagalan dalam transakasi, yang dimana misal pelanggan melakukan refresh atau retry transaksi "mungkin" akan berhasil dan sumber masalahnya hanya karena jaringan yang tiba tiba hilang
 
-**Solusi desain awal:** kasih tombol refresh dan pop up pembayaran gagal untuk mencegah semungkinan pelanggan gagal payout tapi ternyata di foodgo malah udah masuk 
+**Solusi desain awal:** kasih fiur tombol refresh dan pop up pembayaran gagal untuk mencegah kemungkinan pelanggan gagal payout tapi ternyata di foodgo malah udah masuk 
 
 **Trade-off:** resikonya tagihannya bisa jadi double
 
