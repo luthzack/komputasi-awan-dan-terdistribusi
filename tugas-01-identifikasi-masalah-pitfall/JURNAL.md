@@ -18,5 +18,6 @@
 > Wajib diisi sesuai kebijakan Level 2 di [`../RUBRIK-UMUM.md`](../RUBRIK-UMUM.md). Tulis "Tidak memakai AI" pada baris pertama jika memang tidak dipakai. Hanya untuk brainstorming ide/outline — bukan untuk kode/analisis/teks akhir.
 
 | Tanggal | Tool AI | Prompt yang diberikan | Ringkasan saran/ide AI | Bagaimana diolah jadi tulisan/kode sendiri |
-|17 - September - 2026|Claude sonnet|pada tugas tersebut jelaskan pada apa goals utamna yang diinginkan oleh tugas tanpa memberi tahu saya jawabannya namun berikan point point penting yang dapat saya perhatikan dalam mengerjakan tugas ini|ringkasannya claude membantu saya(luthfi) dalam memahami soal dan pitfall pitfall utama|tidak ada karena hanya menggunakan untuk tanya tujuan sama point penting dari tugas|
-| ... | ... | ... | ... | ... |
+|---|---|---|---|---|
+| 17 September 2026 | Claude Sonnet | Pada tugas tersebut, jelaskan apa goals utama yang diinginkan oleh tugas tanpa memberi tahu saya jawabannya, namun berikan poin-poin penting yang dapat saya perhatikan dalam mengerjakan tugas ini. | Claude membantu saya (Luthfi) dalam memahami soal dan pitfall-pitfall utama. | Tidak ada, karena hanya digunakan untuk memahami tujuan dan poin-poin penting dari tugas. | 
+| | | | |

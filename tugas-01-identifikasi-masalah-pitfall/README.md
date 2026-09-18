@@ -76,6 +76,7 @@ Karena tugas ini murni analisis (rawan sekadar salin-tempel dari AI), verifikasi
 **Solusi desain awal:** kasih fiur tombol refresh dan pop up pembayaran gagal untuk mencegah kemungkinan pelanggan gagal payout tapi ternyata di foodgo malah udah masuk 
 
 **Trade-off:** resikonya tagihannya bisa jadi double
+---
 
 ## Pitfall 2: [Latency is Zero] — ditulis oleh [Ro'yul]
 
@@ -85,6 +86,8 @@ Karena tugas ini murni analisis (rawan sekadar salin-tempel dari AI), verifikasi
 
 **Dampak ke FoodGo:** Saat trafik naik(Misal jam makan siang atau saat ada promo besar) akan ada banyak pesanan masuk otomatis modul pesanan akan memanggil modul pembayaran dengan jumlah yang banyak (requestnya), karena tidak ada timeout pada proses pemanggilan antar kedua service ini maka beban ke server akan terus meningkat hingga server tidak mampu menangani pesanan baru (yang melebihi kapasitas resource server) sehingga terjadi gejala seperti yang dilaporkan engineering FoodGo yaitu "Server backend kadang crash total dan perlu di-restart manual" selain itu pesanan yang dilakukan setelah kapasitaas penuh akan mengalami timeout dan aplikasi jadi lambat seperti yang ada paada laporan gejala engineering FoodGo ini "Aplikasi jadi sangat lambat, beberapa permintaan timeout"
  
-**Solusi desain awal:** Menambahkan kode untuk memberikan timeout pada modul pesanan ketika panggil modul pembayaran, jadi diberi waktu 10 detik/disesuaikan dengan kebutuhan sehingga setelah 10 detik maka pesanan akan timeout dan tampilkan ke user bahwa pembayaran sedang ramai/sibuk (coba lagi), menambahkan sistem retry dengan backoff jika memungkinkan agar kalau gagal (bukan karena timeout) masih bisa diusahakan sistem
+**Solusi desain awal:** Menambahkan kode untuk memberikan timeout pada modul pesanan ketika panggil modul pembayaran, jadi diberi waktu 5 detik/disesuaikan dengan kebutuhan sehingga setelah 5 detik maka pesanan akan timeout dan tampilkan ke user bahwa pembayaran sedang ramai/sibuk (coba lagi), menambahkan sistem retry dengan backoff jika memungkinkan agar kalau gagal (bukan karena timeout) masih bisa diusahakan sistem
 
-**Trade-off:** Pembayaran yang bisa diproses pada detik ke 11 akan otomatis timeout, waktu timeout bisa jadi terlalu lama dan kurang cocok dari segi pengguna dan server jadi harus dicari waktu timeout yang tepat, sistem retry backoff dapat menyebabkan duplikasi request pemanggilan modul dan bisa menambah beban server modul pembayaran karena request masuk terus (sesuai dengan jumlah retrynya)
+**Trade-off:** Pembayaran yang bisa diproses pada detik ke 6 akan otomatis timeout, waktu timeout bisa jadi terlalu cepat dan kurang cocok dari segi server jadi harus dicari waktu timeout yang tepat, sistem retry backoff dapat menyebabkan duplikasi request pemanggilan modul dan bisa menambah beban server modul pembayaran karena request masuk terus (sesuai dengan jumlah retrynya)
+
+---
