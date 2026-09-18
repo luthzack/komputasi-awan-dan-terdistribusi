@@ -11,11 +11,11 @@
 
 **Bukti di skenario:** "`# network is always reliable"
 
-**Kenapa ini keliru:** penjelasan: karena pada jaringan yang trsidtribusi sangat tidak mungkin bahwa jaringan akan selalu ada, pasti akan terdapat paket loss dalam bentuk apapun itu bisa jadi kneksi tiba tiba hilang atau yang lainnya 
+**Kenapa ini keliru:** penjelasan: karena pada jaringan yang terdistribusi sangat tidak mungkin bahwa jaringan akan selalu ada, pasti akan terdapat paket loss dalam bentuk apapun itu bisa jadi kneksi tiba tiba hilang atau yang lainnya 
 
-**Dampak ke FoodGo:** dampkanya pada saat terdapat transaksi dengan pelanggan bisa terjadi gannguan jaringan yang berakibat kegagalan dalam transakasi, yang dimana misal pelanggan melakukan refresh atau retry transaksi "mungkin" akan berhasil dan sumber masalahnya hanya karena jaringan yang tiba tiba hilang
+**Dampak ke FoodGo:** dampkanya pada saat terdapat transaksi dengan pelanggan bisa terjadi gangguan jaringan yang berakibat kegagalan dalam transakasi, yang dimana misal pelanggan melakukan refresh atau retry transaksi "mungkin" akan berhasil dan sumber masalahnya hanya karena jaringan yang tiba tiba hilang
 
-**Solusi desain awal:** kasih fiur tombol refreshdalam refresh dan pop up pembayaran gagal untuk mencegah kemungkinan pelanggan gagal payout tapi ternyata di foodgo malah udah masuk 
+**Solusi desain awal:** kasih fiur tombol refresh dalam refresh dan pop up pembayaran gagal untuk mencegah kemungkinan pelanggan gagal payout tapi ternyata di foodgo malah udah masuk 
 
 **Trade-off:** resikonya adalah tagihan yang akan dibayar oleh pelanggan bisa jadi double dan juga request ke sever bisa membeludak akibat refresh terlalu banyak oleh pelanggan
 
@@ -41,11 +41,11 @@
 
 **Kenapa ini keliru:** penjelasan: karena aristektur monolitik ini yang dimana artinya mereka berbagi dalam satu proses CPU, memori, dan thread pool yang sama akan membebani kinerja server dan juga ini tidak sesuai dengan prinsip skalabilitas yang dimana sebaiknya dibagi menjadi setiap modulnya tersendiri tanpa mengganggu modul lainnya
 
-**Dampak ke FoodGo:** dampaknya jika masih menggunakan arsitektur monolitik foodgo pada setiap modul akan terganggu satu sama lain, karena berjalan pada satu sistem yang sama ketika terjadi gangguan pada suatu proses (misal pembayaran atau notifikasi kurir ) dapat terjadi kelaambatan pada server hingga worst casenya adalah crash total pada seluruh apk foodgo 
+**Dampak ke FoodGo:** dampaknya jika masih menggunakan arsitektur monolitik foodgo pada setiap modul akan terganggu satu sama lain, karena berjalan pada satu sistem yang sama ketika terjadi gangguan pada suatu proses (misal pembayaran atau notifikasi kurir ) dapat terjadi kelambatan pada server hingga worst casenya adalah crash total pada seluruh apk foodgo 
 
-**Solusi desain awal:** [usulan solusi]
+**Solusi desain awal:** Berdasarkan analisis diatas itu semua modulnya dijalankan pada 1 server, solusi yang saya berikan adalah memindahkan modul-modul yang ada pada 1 server itu menjadi sebuah modul service yang terpisah, jadi setiap modul dideploy sendiri-sendiri yang akan mempermudah peningkatan resource server sesuai dengan kebutuhan modulnya, sehingga server utama aplikasi FoodGo tidak akan mengalami crash
 
-**Trade-off:** [apa yang dikorbankan/risiko dari solusi ini]
+**Trade-off:** Proses pemisahan modul service akan meningkatkan kinerja aplikasi dan mengurangi kelambatan, namun kompleksitas kodenya akan menjadi tinggi mulai dari mengurus komunikasi antar modul service, penanganan antara modul service kalau gagal terhubung, penaganan timeout, pemantauan kelancaran sistem dan lain-lain.
 
 ---
 
