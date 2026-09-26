@@ -59,3 +59,29 @@ Kebijakan **Level 2 (AI Assisted Idea Generation & Structuring)** berlaku — li
 
 ## JAWABAN KAMI
 ![](../tugas-02-perancangan-arsitektur/diagram/DIAGRAM%20KELOMPOK%206.jpg)
+ 
+### PENJELASAN Dan ALUR DiAGRAM
+
+pertama, custumor --> API Gateway
+Penjelasan : **custumoer** melakukan pemesanan dengan cara mengirimkan request pada **API Gateway** yang berfungsi untuk menerima pesanan awal dari semua request 
+
+Kedua, API Gateway --> Modul pesanan
+penjelasan : setelah request ditampung **API Gateway** request diteruskan menuju **Modul Pesanan** sebagai "buat Pesanan(sinkron)" yang dimana **Modul Pesanan** bertindak sebagai koordinator seluruh proses pesanan
+
+Ketiga,  Modul Pesanan --> Modul Katalog
+penjelasan : **Modul Pesanan** mengirimkan permintaan "Cek Katalog/Stoknya (Sinkron/Request)" ke **Modul Katalog** untuk cek dan minta konfirmasi apakah stok tersedia atau tidak, Modul Katalog mengakses Database FoodGo ("Akses Database") untuk mengambil data menu/stok terkini, setelah itu modul Katalog mengembalikan "(Respon/Sinkron) List Menu/Stok" kembali ke **Modul Pesanan**. selain melalu modul katalog ada juga jalur lain untuk meminta database terkait stok terkini yaitu dengan lansgung minta ke akses **database foodgo**. Yang dimana berarti **modul pesanan** ini itu juga bisa membaca/menulis data pesanan langsung ke database.
+
+keempat, Modul Pesanan --> Modul Pembayaran
+penjelasan : setelah melakukan cek stok pada database foodgo dan stok ternyata ada, Pesanan minta diproses pembayaran (sinkron, request-response). Modul Pembayaran melakukan akses ke database untuk mencatat transaksi dan mengembalikan "Hasil Pembayaran"(sinkron) ke Modul Pesanan. mengapa demikian? karena pesanan perlu tahu status bayar sebelum melanjutkan ke proses selanjutnya.
+
+kelima, Modul Pesanan --> Modul Restoran
+penjelasan : setelah pembayaran sukses, pesanan mengirim "Confirmed Order" ditandai dengan garis putus - putus pada diagram yang artinya adalah mpodul pesanan tidak menunggu restoran merespons secara langsung
+
+keenam,Modul restoran
+penjelasan :Modul Restoran berfungsi untuk mengakses Database dan digunakan menyimpan/mengonfirmasi order di sisi resto.
+
+ketujuh, Modul restoran --> Modul Kurir/notifikasi kurir
+penjelasan :"Notifikasi Penugasan Untuk Kurir" ditandai dengan garis putus putus karena seperti modul pesanan. yang dimana Restoran tidak menunggu kurir menerima tugas
+
+Terakhir, Modul Kurir
+penjelasan : Modul kurir melakukan akses pada **Database foodgo** untuk melakukan pencatatan penugasan dan status pengiriman
