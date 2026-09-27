@@ -58,30 +58,38 @@ Kebijakan **Level 2 (AI Assisted Idea Generation & Structuring)** berlaku — li
 
 
 ## JAWABAN KAMI
+
+### DIAGRAM
 ![](../tugas-02-perancangan-arsitektur/diagram/DIAGRAM%20KELOMPOK%206.jpg)
  
-### PENJELASAN Dan ALUR DiAGRAM
+### PENJELASAN & ALUR DIAGRAM
 
-pertama, custumor --> API Gateway
-Penjelasan : **custumoer** melakukan pemesanan dengan cara mengirimkan request pada **API Gateway** yang berfungsi untuk menerima pesanan awal dari semua request 
+1. Customer --> API Gateway
+Penjelasan : **customer** melakukan pemesanan dengan cara mengirimkan request melalui **API Gateway**, yang berfungsi sebagai pintu masuk untuk menerima dan meneruskan request dari customer ke service yang sesuai. 
 
-Kedua, API Gateway --> Modul pesanan
+2. API Gateway --> Modul Pesanan
 penjelasan : setelah request ditampung **API Gateway** request diteruskan menuju **Modul Pesanan** sebagai "buat Pesanan(sinkron)" yang dimana **Modul Pesanan** bertindak sebagai koordinator seluruh proses pesanan
 
-Ketiga,  Modul Pesanan --> Modul Katalog
-penjelasan : **Modul Pesanan** mengirimkan permintaan "Cek Katalog/Stoknya (Sinkron/Request)" ke **Modul Katalog** untuk cek dan minta konfirmasi apakah stok tersedia atau tidak, Modul Katalog mengakses Database FoodGo ("Akses Database") untuk mengambil data menu/stok terkini, setelah itu modul Katalog mengembalikan "(Respon/Sinkron) List Menu/Stok" kembali ke **Modul Pesanan**. selain melalu modul katalog ada juga jalur lain untuk meminta database terkait stok terkini yaitu dengan lansgung minta ke akses **database foodgo**. Yang dimana berarti **modul pesanan** ini itu juga bisa membaca/menulis data pesanan langsung ke database.
+3. Modul Pesanan --> Modul Katalog
+penjelasan : **Modul Pesanan** mengirimkan permintaan "Cek Katalog/Stoknya (Sinkron/Request)" ke **Modul Katalog** untuk cek dan minta konfirmasi apakah stok tersedia atau tidak, Modul Katalog mengakses Database FoodGo ("Akses Database") untuk mengambil data menu/stok terkini, setelah itu modul Katalog mengembalikan "(Respon/Sinkron) List Menu/Stok" kembali ke **Modul Pesanan**. 
 
-keempat, Modul Pesanan --> Modul Pembayaran
+4. Modul Pesanan --> Modul Pembayaran
 penjelasan : setelah melakukan cek stok pada database foodgo dan stok ternyata ada, Pesanan minta diproses pembayaran (sinkron, request-response). Modul Pembayaran melakukan akses ke database untuk mencatat transaksi dan mengembalikan "Hasil Pembayaran"(sinkron) ke Modul Pesanan. mengapa demikian? karena pesanan perlu tahu status bayar sebelum melanjutkan ke proses selanjutnya.
 
-kelima, Modul Pesanan --> Modul Restoran
+5. Modul Pesanan --> Modul Restoran
 penjelasan : setelah pembayaran sukses, pesanan mengirim "Confirmed Order" ditandai dengan garis putus - putus pada diagram yang artinya adalah mpodul pesanan tidak menunggu restoran merespons secara langsung
 
-keenam,Modul restoran
-penjelasan :Modul Restoran berfungsi untuk mengakses Database dan digunakan menyimpan/mengonfirmasi order di sisi resto.
-
-ketujuh, Modul restoran --> Modul Kurir/notifikasi kurir
+6.  Modul restoran --> Modul Kurir/notifikasi kurir
 penjelasan :"Notifikasi Penugasan Untuk Kurir" ditandai dengan garis putus putus karena seperti modul pesanan. yang dimana Restoran tidak menunggu kurir menerima tugas
 
-Terakhir, Modul Kurir
-penjelasan : Modul kurir melakukan akses pada **Database foodgo** untuk melakukan pencatatan penugasan dan status pengiriman
+Modul Restoran
+penjelasan :Modul Restoran berfungsi untuk menyimpan/mengonfirmasi order di sisi resto dan meneruskan notifikasi ke kurir
+
+Modul Kurir
+penjelasan : Modul kurir melakukan pencatatan penugasan dan status pengiriman untuk notifikasi
+
+### ANALISIS TERTULIS (Alasan Arsitektur Ini Dapat Menangani Coupling)
+
+Arsitektur SOA yang kami pilih ini dapat mengurangi coupling yang terjadi pada FoodGo karena arsitektur sebelumnya yang monolith/monolitik, SOA mengurangi coupling dengan memsiahkan setiap modul menjadi sebuah service terpisah yang punya peran masing-masing. Dengan memilih arsitektur SOA tentu akan ada trade-off yaitu bertambahnya kompleksitas sistem. Kompleksitas ini terdapat pada bagian komunikasi yang sebelumnya dilakukan dalam 1 sistem menjadi beberapa service terpisah melalui jaringan, sehingga perlu menangani kemungkinan network failure, timeout, keterlambatan response, dan kegagalan service. Selain itu, proses debugging menjadi lebih sulit karena satu alur pemesanan dapat melibatkan beberapa service, seperti pemesanan -> Katalog -> Pembayaran -> Restoran -> Kurir.
+
+Oleh karena itu, SOA dapat mengurangi coupling yang terjadi pada FoodGo sebelumnya, tetapi sebagai gantinya sistem memiliki lebih banyak komunikasi dan mekanisme terhubung yang harus dikelola dengan baik.
