@@ -5,7 +5,7 @@
 - Kenapa akhirnya pilih [SOA]: Karena ditugas satu kami hanya memilih SOA, selain itu menurut kami mengkombinasikan SOA dan Pub-Sub akan meningkatkan kompleksitasnya menjadi lebih tinggi untuk tim FoodGo, karena itu SOA untuk sekarang sudah cukup menurut kami 
 
 ## 27 September 2026
-- Review Silang: [Ro'yul] Mengomentari [Luthfi]: ada kalimat yang kurang tepat untuk menjelaskan alur diagramnya, jadi dibetulkan bersama didiscord (bukti ada di bawah)
+- Review Silang: [Ro'yul] Mengomentari [Luthfi]: ada kalimat yang kurang tepat untuk menjelaskan alur diagramnya, jadi dibetulkan bersama didiscord (bukti ada di bawah) sekaligus membahas analisis trade-off
 
 
 ## Log Penggunaan AI (Level 2)
