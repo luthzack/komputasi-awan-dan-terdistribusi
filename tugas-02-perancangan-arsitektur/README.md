@@ -60,7 +60,7 @@ Kebijakan **Level 2 (AI Assisted Idea Generation & Structuring)** berlaku — li
 ## JAWABAN KAMI
 
 ### DIAGRAM
-![](../tugas-02-perancangan-arsitektur/diagram/DIAGRAM%20KELOMPOK%206.jpg)
+![](../tugas-02-perancangan-arsitektur/diagram/Diagram_Foodgo.png)
  
 ### PENJELASAN & ALUR DIAGRAM
 
@@ -90,6 +90,6 @@ penjelasan : Modul kurir melakukan pencatatan penugasan dan status pengiriman un
 
 ### ANALISIS TERTULIS (Alasan Arsitektur Ini Dapat Menangani Coupling)
 
-Arsitektur SOA yang kami pilih ini dapat mengurangi coupling yang terjadi pada FoodGo karena arsitektur sebelumnya yang monolith/monolitik, SOA mengurangi coupling dengan memsiahkan setiap modul menjadi sebuah service terpisah yang punya peran masing-masing. Dengan memilih arsitektur SOA tentu akan ada trade-off yaitu bertambahnya kompleksitas sistem. Kompleksitas ini terdapat pada bagian komunikasi yang sebelumnya dilakukan dalam 1 sistem menjadi beberapa service terpisah melalui jaringan, sehingga perlu menangani kemungkinan network failure, timeout, keterlambatan response, dan kegagalan service. Selain itu, proses debugging menjadi lebih sulit karena satu alur pemesanan dapat melibatkan beberapa service, seperti pemesanan -> Katalog -> Pembayaran -> Restoran -> Kurir.
+Arsitektur SOA yang kami pilih ini dapat mengurangi coupling yang terjadi pada FoodGo. Karena arsitektur sebelumnya yang monolith/monolitik, SOA mengurangi coupling dengan memsiahkan setiap modul menjadi sebuah service terpisah yang punya peran masing-masing. Dengan memilih arsitektur SOA tentu akan ada trade-off yaitu bertambahnya kompleksitas pada sistem. Kompleksitas ini terdapat pada bagian komunikasi yang sebelumnya dilakukan dalam 1 sistem menjadi beberapa service terpisah melalui jaringan, sehingga perlu menangani kemungkinan network failure, timeout, keterlambatan response, dan kegagalan service. Selain itu, proses debugging menjadi lebih sulit karena satu alur pemesanan dapat melibatkan beberapa service, seperti pemesanan -> Katalog -> Pembayaran -> Restoran -> Kurir.
 
-Oleh karena itu, SOA dapat mengurangi coupling yang terjadi pada FoodGo sebelumnya, tetapi sebagai gantinya sistem memiliki lebih banyak komunikasi dan mekanisme terhubung yang harus dikelola dengan baik.
+Oleh karena itu, dengan menerapkan SOA seharusnya dapat mengurangi coupling yang terjadi pada arsitektur FoodGo sebelumnya, tetapi sebagai gantinya sistem memiliki lebih banyak komunikasi dan mekanisme terhubung yang harus dikelola dengan baik.
