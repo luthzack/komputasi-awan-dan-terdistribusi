@@ -66,3 +66,17 @@ Kebijakan **Level 2 (AI Assisted Idea Generation & Structuring)** berlaku — li
 
 - Bagian `# TODO` di `order_simulator.py` dan `Dockerfile` sengaja dikosongkan — solusi yang identik persis antar kelompok (termasuk nama variabel, komentar) akan diperiksa lebih lanjut.
 - `JURNAL.md` wajib menunjukkan bukti nyata percobaan **sebelum** (race condition muncul) dan **sesudah** (`Lock()` dipasang) — bukan cuma klaim tanpa data pembanding.
+
+
+## Percobaan tanpa Lock
+- Hasil `processed_count` yang didapat: 
+![](../tugas-03-multithreading-container/bukti/hasil_tanpa_lock.png)
+
+# Codenya
+![](../tugas-03-multithreading-container/bukti/TANPA_LOCK.png)
+
+- Kenapa bisa meleset (jelaskan mekanisme race condition dengan kata sendiri): Hal ini dapat terjadi karena kan "processed_count" dipakai bersama oleh 10 thread.Yang dimana increment sebenarnya terdiri dari tiga langkah (baca nilai, tambah 1, dan tulis kembali),nah  karena tidak adanya proteksi dengan memberikan lock, dua thread bisa membaca nilai lama yang sama trus keduanya menulis hasil yang sama dan satu pesanan hilang, nah karena itulah kenapa increment dibungkus pakai "with lock" agar hanya satu thread yang dapat menjalankan langkah baca, tambah, dan tulis dalam satu waktu sehingga hasilnya konsisten tepat 100
+
+
+## Percobaan dengan Lock
+- Hasil `processed_count` setelah perbaikan: ![](../tugas-03-multithreading-container/bukti/PAKE_LOCK.png)
