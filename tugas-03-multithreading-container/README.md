@@ -75,8 +75,15 @@ Kebijakan **Level 2 (AI Assisted Idea Generation & Structuring)** berlaku — li
 # Codenya
 ![](../tugas-03-multithreading-container/bukti/TANPA_LOCK.png)
 
-- Kenapa bisa meleset (jelaskan mekanisme race condition dengan kata sendiri): Hal ini dapat terjadi karena kan "processed_count" dipakai bersama oleh 10 thread.Yang dimana increment sebenarnya terdiri dari tiga langkah (baca nilai, tambah 1, dan tulis kembali),nah  karena tidak adanya proteksi dengan memberikan lock, dua thread bisa membaca nilai lama yang sama trus keduanya menulis hasil yang sama dan satu pesanan hilang, nah karena itulah kenapa increment dibungkus pakai "with lock" agar hanya satu thread yang dapat menjalankan langkah baca, tambah, dan tulis dalam satu waktu sehingga hasilnya konsisten tepat 100
+- Kenapa bisa meleset (jelaskan mekanisme race condition dengan kata sendiri): Hal ini dapat terjadi karena kan "processed_count" dipakai bersama oleh 10 thread.Yang dimana increment sebenarnya terdiri dari tiga langkah (baca nilai, tambah 1, dan tulis kembali),nah  karena tidak adanya proteksi dengan memberikan lock, dua thread bisa membaca nilai lama yang sama trus keduanya menulis hasil yang sama dan satu pesanan hilang, nah karena itulah kenapa increment dibungkus pakai **"with lock"** agar hanya satu thread yang dapat menjalankan langkah baca, tambah, dan tulis dalam satu waktu sehingga hasilnya konsisten tepat 100
 
 
 ## Percobaan dengan Lock
 - Hasil `processed_count` setelah perbaikan: ![](../tugas-03-multithreading-container/bukti/PAKE_LOCK.png)
+
+## Analisis Kasus FoodGo Proses OS vs MultiThreading
+Server dari FoodGo menjadi boros resource karena setiap kali ada pesanan masuk, server meminta OS untuk buat proses baru dengan wadah yang lengkap (punya overhead sendiri), misal 1 proses itu membutuhkan 20-30mb maka jika ada 100 pesanan maka server butuh 2000mb-3000mb RAM atau Memory, sehingga server akan mengalami penambahan beban yang mengakibatkan pemborosan sumberdaya yang banyak hingga server down/crash karena habis sumber dayanya.
+
+Untuk mengatasi masalah ini FoodGo sebaiknya menggunakan **MultiThreading**, yaitu server hanya menjalankan 1 proses utama, namun didalamnya mempunyai banyak thread pekerja yang akan mengurus tugas yang diberikan ke masing-masing thread dan bisa dijalankan secara **konkuren** (berjalan bersamaan / tidak perlu menunggu satu thread selesai baru jalankan tugas thread selanjutnya). Thread tidak membutuhkan RAM / memory yang besar seperti Proses OS karena thread berbagi memory yang sama sehingga server tidak akan boros sumber daya.
+
+Konsekuensi yang harus dihadapi bila FoodGo menerapkan MultiThreading adalah adanya kemungkinan race condition yaitu kondisi di mana beberapa thread berebut membaca dan menulis variabel memori bersama dalam waktu yang sama sehingga data bisa hilang, untuk mengatasi ini bisa menggunakan Lock.
