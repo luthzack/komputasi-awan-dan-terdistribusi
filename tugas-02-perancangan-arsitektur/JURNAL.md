@@ -6,6 +6,7 @@
 
 ## 27 September 2026
 - Review Silang: [Ro'yul] Mengomentari [Luthfi]: ada kalimat yang kurang tepat untuk menjelaskan alur diagramnya, jadi dibetulkan bersama didiscord (bukti ada di bawah) sekaligus membahas analisis trade-off
+- Review Silang: [Luthfi] Mengomentari [Ro'yul] : Itu Gambar Diagramnya agak membingunkan tapi sepertinya itu sudah pas sesuai dengan kemauan soal ya, jadi saya sedikit merapihkan diagram yang telah dibuat oleh [Ro'yul],
 
 
 ## Log Penggunaan AI (Level 2)
