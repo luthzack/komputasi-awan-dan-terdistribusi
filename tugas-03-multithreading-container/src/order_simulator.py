@@ -50,8 +50,7 @@ def main() -> None:
     # TODO 3: Bagi `order_ids` menjadi NUM_WORKERS bagian, buat satu
     # threading.Thread per bagian yang menjalankan `worker(...)`,
     # start semua thread, lalu join semua thread sebelum lanjut.
-    Size = NUM_ORDERS // NUM_WORKERS
-    threads = []
+    
     # ... isi logika pembagian tugas & pembuatan thread di sini ...
 
     size = NUM_ORDERS // NUM_WORKERS
