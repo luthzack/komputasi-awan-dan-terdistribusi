@@ -73,3 +73,19 @@ tugas-04-rpc-message-queue/
 Kebijakan **Level 2 (AI Assisted Idea Generation & Structuring)** berlaku — lihat [`../RUBRIK-UMUM.md`](../RUBRIK-UMUM.md). Boleh bertanya konsep umum RPC/message queue ke AI; **tidak boleh** meminta AI menuliskan isi `# TODO` di `rpc/server.py`, `rpc/client.py`, `mq/publisher.py`, atau `mq/consumer.py`. Catat pemakaian AI di "Log Penggunaan AI" pada `JURNAL.md`.
 
 - `JURNAL.md` wajib menjelaskan apa yang terjadi pada request RPC jika server mati di tengah proses (Jalur A), atau ke mana pesan "hilang sementara" tersimpan saat consumer mati (Jalur B) — jawaban generik/hafalan istilah tanpa mengaitkan ke hasil percobaan sendiri akan dinilai rendah.
+
+
+## Analisis Mengapa Memilih Jalur MMQ dan Apa Yang Terjadi Bila Diterapkan Pada Skenario Yang Salah 
+
+### Alasan Mmilih Message Queue untuk Skenario Notifikasi Kurir
+Dalam sistem FoodGo, komunikasi antara modul Pembayaran dan modul Kurir/Notifikasi bersifat **asinkron**. Setelah pembayaran customer berhasil diverifikasi:
+- Modul Pembayaran hanya bertugas memberitahukan bahwa *"pesanan siap diantar"*, tanpa perlu menunggu konfirmasi langsung dari modul kurir saat itu juga.
+- Dengan menggunakan Message Queue (RabbitMQ), modul pembayaran tetap bisa berjalan dengan baik dan melayani pesanan dari customer berikutnya, meskipun modul kurir sedang sibuk memproses antrian lain, atau bahkan mengalami gangguan sementara **(service down)**.
+- Pesan pembayaran tidak akan hilang karena disimpan dengan aman dengan mekanisme persisten pada broker(RabbitMQ) secara local (penyimpanan server) hingga modul kurir aktif kembali.
+
+### Apa yang Terjadi Jika Menggunakan RPC (Sinkron) Digunakan Dalam Modul Notifikasi Kurir?
+Jika modul notifikasi kurir menggunakan RPC maka:
+- Modul Pembayaran akan **terblokir (blocking/waiting)** menunggu respons balik dari modul kurir sebelum bisa membalas ke pengguna.
+- Apabila modul kurir lambat memproses atau server kurir mengalami **crash**, modul pembayaran akan ikut macet atau mengalami **timeout**. Akibatnya, customer akan mengira pembayarannya gagal, atau aplikasi FoodGo menjadi sangat lambat secara menyeluruh hanya karena salah satu modul dalam server itu sedang bermasalah.
+
+Oleh karena itu, RPC lebih cocok digunakan untuk sistem yang membutuhkan respons instan dan wajib sinkron (seperti `cek_saldo`), sedangkan Message Queue adalah cara yang tepat untuk mengelola modul Pembayaran ke Kurir.
