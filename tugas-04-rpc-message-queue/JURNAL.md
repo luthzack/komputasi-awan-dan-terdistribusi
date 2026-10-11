@@ -1,7 +1,7 @@
 # Jurnal Proses — Tugas 4
 
 ## Jalur yang dipilih
-- [RPC / MQ / keduanya], alasan: ...
+- [RPC / MQ / keduanya], alasan: Message Queue(MQ)
 
 ## Kendala teknis
 - Error saat setup (mis. koneksi RabbitMQ ditolak, port bentrok): ...
