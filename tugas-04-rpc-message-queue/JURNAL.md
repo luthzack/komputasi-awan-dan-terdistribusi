@@ -29,6 +29,7 @@ Pesan `hilang sementara` tersimpan di dalam antrean **pembayaran_berhasil** pada
 | Tanggal | Tool AI | Prompt yang diberikan | Ringkasan saran/ide AI | Bagaimana diolah jadi tulisan/kode sendiri |
 |---|---|---|---|---|
 | 10-11-2026 | Gemini | Di dashboard rabbitmq ada tulisan Publish, Deliver (Manual ack), Consumer ack, Disk Read, Disk Write itu gunanya apa  | AI menjawab masing-masing kegunaan dari hal yang kusebut misal Consumer Ack yang mengirim konfirmasi ke rabbitMq bahwa pesan sudah diterima dan dapat menghapus dari antrian | tulisan diolah menjadi kalimat analisis dan bertambahnya pengetahuan saya  |
+|10-10-2026|Chatgpt|Saya diberikan sebuah tugas yang dimana berkaitan dengan materi Remote Procedure Call (RPC), Message-Oriented Middleware (MOM)/Message Queue. Saya berkelompok dua orang berikan saya pilihan terbaik dan mudah untuk dikerjakan minimal satu. Pilihan : MQ(message Queue) dan RPC| chatgpt menyarankan menggunakan jalur MQ| menambahkan code yang kurang lengkap pada TODO 1 2 3 4 consumer maupun publisher|
 
 
 ## Bukti Diskusi
