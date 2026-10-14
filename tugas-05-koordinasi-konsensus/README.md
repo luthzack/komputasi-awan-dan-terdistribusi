@@ -61,3 +61,11 @@ tugas-05-koordinasi-konsensus/
 Kebijakan **Level 2 (AI Assisted Idea Generation & Structuring)** berlaku — lihat [`../RUBRIK-UMUM.md`](../RUBRIK-UMUM.md). Boleh bertanya ke AI tentang gambaran umum algoritma election; **tidak boleh** meminta AI menuliskan isi `# TODO` di `src/node.py` (logika `on_message`, `start_election`, `declare_leader`, `monitor_leader`). Catat pemakaian AI di "Log Penggunaan AI" pada `JURNAL.md`.
 
 - `README.md` wajib menjelaskan kenapa Bully Algorithm selalu memilih node ber-ID tertinggi yang masih hidup, dan apa kelemahannya dibanding algoritma lain (mis. jumlah pesan yang dikirim saat election, single point of failure sebelum leader baru terpilih) — bukan sekadar definisi generik.
+
+
+#### Kenapa Bully Algorithm selalu piiih node dengan ID tinggi?
+Karena proses pemilihan node leader tidak akan menjadi rumit, hanya perlu membandingkan ID node sendiri dengan ID node yang lain dan tujuan akhirnya adalah node dengan ID paling tinggi. Pencarian ID tertinggi itu arahnya pasti (tidak perlu cek nilai ID dari semua node ketika ada node yang menjawab `OK`, hanya perlu cek apakah ada ID dengan nilai di atas node itu sekarang, kalau tidak ada jawaban maka bisa jadi Nodenya mati, kalau dari awal tidak ada yang lebih tinggi dari id saat ini maka langsung jadi `node leader`)
+
+#### Kelemahan Bully Algoritm Dibanding Algoritma yang lain
+1. Node Leader sering terputus. Node leader (anggap saja 5) bisa saja mengalami gangguan dijaringannya yang digunakan untuk mengatur kepemimpinannya dan terjadi restart, disaat restart otomatis `ELECTION` terjadi dan node id 4 terpilih, disaat node id 5 kembali hidup maka dia akan melakukan `ELECTION` dan merebut gelar leader dari node id 4, Jika hal ini berlangsung terus menerus maka sistem tidak bisa fokus melakukan pekerjaannya karena harus urus `ELECTION`
+2. SPOF (Single Point Of Failure). Kondisi dimana sistem itu kehilangan Node leader sedangkan sistem masih harus memproses pesanan yang masuk, pesanan itu akan tergantung menunggu diarahkan (sistem down). Apabila dalam waktu `ELECTION` ternyata pesanan itu membludak bisa saja terjadi hal yang tidak diinginkan (Pembayaran dilakukan 2 kali, penjualan melebihi stok, server crash karena pesanan menumpuk)

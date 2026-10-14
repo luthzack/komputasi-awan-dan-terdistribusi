@@ -26,6 +26,7 @@ class Node:
         self.peers = peers
         self.leader_id = None
         self.lock = threading.Lock()
+        self.flag_ok = threading.Event() # code untuk set event ketika menerima OK dari node lain
 
     # ---------- Infrastruktur jaringan (SUDAH LENGKAP, jangan diubah) ----------
 
@@ -68,6 +69,21 @@ class Node:
         #     kita TIDAK boleh mendeklarasikan diri sebagai leader.
         #   - "COORDINATOR": simpan sender_id sebagai leader_id yang baru.
         print(f"[Node {self.node_id}] Menerima pesan '{msg_type}' dari node {sender_id} (TODO: proses ini)")
+        if msg_type == "ELECTION":
+            if self.node_id > sender_id:
+                if sender_id in self.peers:
+                    self.send_message(self.peers[sender_id], "OK")
+                    threading.Thread(target=self.start_election, daemon=True).start()
+
+        elif msg_type == "OK":
+            print(f"[Node {self.node_id}] tidak memulai election, karena masih ada node yang lebih tinggi ({sender_id})")
+            self.flag_ok.set()
+
+        elif msg_type == "COORDINATOR":
+            with self.lock:
+                self.leader_id = sender_id
+                print(f"[Node {self.node_id}] Adalah node leader baru: {self.leader_id}")
+            
 
     def start_election(self):
         """Dipanggil saat node ini mendeteksi leader tidak ada / tidak merespons."""
@@ -77,6 +93,26 @@ class Node:
         # Jika TIDAK ADA balasan "OK" dalam waktu tersebut -> panggil declare_leader().
         higher_peers = {pid: p for pid, p in self.peers.items() if pid > self.node_id}
         print(f"[Node {self.node_id}] TODO: mulai election ke peer lebih tinggi: {higher_peers}")
+        if len(higher_peers) == 0:
+            print(f"[Node {self.node_id}] Tidak ada node dengan ID lebih tinggi, {self.node_id} deklarasi diri sebagai leader")
+            self.declare_leader()
+            return
+
+        self.flag_ok.clear()
+        print(f"[Node {self.node_id}] Kirim ELECTION ke node yang lebih tinggi IDnya")
+        for pid, port in higher_peers.items():
+            print(f"[Node {self.node_id}] Mengirim ELECTION ke node {pid} di port {port}")
+            self.send_message(port, "ELECTION")
+
+        print(f"[Node {self.node_id}] Menunggu balasan OK selama {ELECTION_TIMEOUT} detik")
+
+        terima_flag_ok = self.flag_ok.wait(timeout=ELECTION_TIMEOUT)
+        if not terima_flag_ok:
+            print(f"[Node {self.node_id}] Tidak ada balasan OK, deklarasi diri sebagai leader")
+            self.declare_leader()
+        else:
+            print(f"[Node {self.node_id}] Ada node yang lebih tinggi masih hidup, tidak deklarasi diri sebagai leader")
+
 
     def declare_leader(self):
         """Node ini menyatakan dirinya leader dan memberi tahu semua node lain."""
