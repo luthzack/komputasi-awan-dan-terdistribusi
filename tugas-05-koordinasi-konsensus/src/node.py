@@ -135,10 +135,10 @@ class Node:
             leader = self.leader_id
 
             if leader == self.node_id:
-                continue  # saya sendiri leader-nya
+                continue  # saya leadernya
 
             if leader is None:
-                # belum tahu leader; mulai election jika belum berjalan
+                # belum tahu leader dan mulai election jika belum berjalan
                 if not self.election_running:
                     self.start_election()
                 continue
