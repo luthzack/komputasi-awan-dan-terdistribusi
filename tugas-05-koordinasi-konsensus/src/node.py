@@ -82,7 +82,7 @@ class Node:
         elif msg_type == "COORDINATOR":
             with self.lock:
                 self.leader_id = sender_id
-                print(f"[Node {self.node_id}] Adalah node leader baru: {self.leader_id}")
+                print(f"[Node {self.leader_id}] Sekarang adalah node leader baru")
             
 
     def start_election(self):
