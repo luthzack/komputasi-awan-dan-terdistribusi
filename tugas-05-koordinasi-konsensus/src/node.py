@@ -133,11 +133,9 @@ class Node:
             # (leader mati) dan node ini belum tahu leader baru, panggil
             # start_election().
             leader = self.leader_id
-
         
             if leader is None or leader == self.node_id:
                 # belum tahu leader dan mulai election jika belum berjalan
-               
                 continue
 
             port = self.peers.get(leader)
@@ -170,7 +168,6 @@ def main():
 
     while True:
         time.sleep(60)
-
 
 if __name__ == "__main__":
     main()
