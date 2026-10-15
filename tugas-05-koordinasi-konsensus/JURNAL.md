@@ -1,7 +1,8 @@
 # Jurnal Proses — Tugas 5
 
 ## Implementasi Bully
-- Kendala saat mengisi TODO 1-4: ...
+- Kendala saat mengisi TODO 1-4: 
+
 
 ## Skenario 1: Start normal
 - Leader yang terpilih: ...
