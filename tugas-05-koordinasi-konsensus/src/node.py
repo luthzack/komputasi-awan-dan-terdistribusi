@@ -134,13 +134,10 @@ class Node:
             # start_election().
             leader = self.leader_id
 
-            if leader == self.node_id:
-                continue  # saya leadernya
-
-            if leader is None:
+        
+            if leader is None or leader == self.node_id:
                 # belum tahu leader dan mulai election jika belum berjalan
-                if not self.election_running:
-                    self.start_election()
+               
                 continue
 
             port = self.peers.get(leader)
