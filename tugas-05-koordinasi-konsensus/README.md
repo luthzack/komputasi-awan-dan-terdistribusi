@@ -4,7 +4,7 @@
 
 ## Studi Kasus
 
-
+Terjadi konflik urutan waktu pada pesanan FoodGo (dua server mencatat urutan pesanan berbeda karena jam tidak sinkron), dan sistem membutuhkan satu **"Node Leader"** untuk mengelola antrean pesanan pusat agar tidak terjadi konflik pemrosesan ganda.
 
 ## Tugas Kelompok
 
@@ -69,3 +69,18 @@ Karena proses pemilihan node leader tidak akan menjadi rumit, hanya perlu memban
 #### Kelemahan Bully Algoritm Dibanding Algoritma yang lain
 1. Node Leader sering terputus. Node leader (anggap saja 5) bisa saja mengalami gangguan dijaringannya yang digunakan untuk mengatur kepemimpinannya dan terjadi restart, disaat restart otomatis `ELECTION` terjadi dan node id 4 terpilih, disaat node id 5 kembali hidup maka dia akan melakukan `ELECTION` dan merebut gelar leader dari node id 4, Jika hal ini berlangsung terus menerus maka sistem tidak bisa fokus melakukan pekerjaannya karena harus urus `ELECTION`
 2. SPOF (Single Point Of Failure). Kondisi dimana sistem itu kehilangan Node leader sedangkan sistem masih harus memproses pesanan yang masuk, pesanan itu akan tergantung menunggu diarahkan (sistem down). Apabila dalam waktu `ELECTION` ternyata pesanan itu membludak bisa saja terjadi hal yang tidak diinginkan (Pembayaran dilakukan 2 kali, penjualan melebihi stok, server crash karena pesanan menumpuk)
+
+#### Analisis (kenapa perlu leader, trade-off Bully vs Raft)
+
+diperlukan Leader pada kasus FoodGo karena dua server mencatat urutan pesanan yang berbeda karena jam fisiknya tidak sinkron, jadi pesanan yang sama bisa diproses dua kali atau dalam urutan yang beda. Solusinya kita pakai satu **node leader** yang jadi satu-satunya pengelola antrean pusat. dengan begitu urutan pesanan jadi punya satu sumber kebenaran dan tidak lagi bergantung pada jam tiap server, pemrosesan ganda juga tercegah karena hanya leader yang boleh memproses antrean, sementara node lain cukup tahu siapa leader-nya. Konsekuensinya, leader jadi titik kritis: kalau misal dia mati, sistem jadi harus cepat memilih pengganti, nah di sinilah election algorithm (Bully) berperan.
+
+#### Trade-off Bully vs Raft
+
+Bully memilih leader berdasarkan ID tertinggi jadi buat node yang hidup dengan ID paling besar otomatis jadi Leader. Cara ini simpel dan gampang diimplementasikan, tapi punya beberapa kelemahan seperti  pada Saat jaringan terpartisi, tiap sisi bisa memilih leader sendiri (split brain), sehingga bisa ada dua leader sekaligus. Selain itu, node ber-ID tinggi yang kembali hidup langsung merebut posisi leader walaupun leader sekarang masih sehat, jadi leader bisa gonta-ganti. Bully juga hanya memilih leader dan tidak menjamin data antrean tetap konsisten, dan jumlah pesannya bisa membengkak kalau node ber-ID terendah yang memulai election.
+
+di sisi lain misal raft memilih leader lewat voting yang dimana kandidat harus mendapat suara mayoritas dalam satu term. Karena butuh mayoritas, hanya sisi partisi yang punya mayoritas yang bisa punya leader jadi split brain tidak terjadi. Leader lama juga tidak digeser selama term-nya masih yang terbaru, dan Raft punya log replication sehingga data dianggap sah setelah tersimpan di mayoritas node. masalahnya , Raft lebih rumit karena ada term, vote, heartbeat, dan replikasi log.
+
+
+Kontribusi Kelompok : 
+Naufal luthfi Muzakki 103072400137 (Todo 3, 4 , analisis , dan tradeoff bully vs Raft)
+Nur Ro'yul Amin (Todo 1,2, Kenapa Bully Algorithm selalu piiih node dengan ID tinggi?, dan Kelemahan Bully Algoritm Dibanding Algoritma yang lain )

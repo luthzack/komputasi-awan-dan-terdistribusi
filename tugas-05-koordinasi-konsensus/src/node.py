@@ -68,7 +68,7 @@ class Node:
         #   - "OK": tandai bahwa ada node lebih tinggi yang masih hidup, sehingga
         #     kita TIDAK boleh mendeklarasikan diri sebagai leader.
         #   - "COORDINATOR": simpan sender_id sebagai leader_id yang baru.
-        print(f"[Node {self.node_id}] Menerima pesan '{msg_type}' dari node {sender_id} (TODO: proses ini)")
+        print(f"[Node {self.node_id}] Menerima pesan '{msg_type}' dari node {sender_id} ")
         if msg_type == "ELECTION":
             if self.node_id > sender_id:
                 if sender_id in self.peers:
@@ -94,7 +94,7 @@ class Node:
         higher_peers = {pid: p for pid, p in self.peers.items() if pid > self.node_id}
         print(f"[Node {self.node_id}] TODO: mulai election ke peer lebih tinggi: {higher_peers}")
         if len(higher_peers) == 0:
-            print(f"[Node {self.node_id}] Tidak ada node dengan ID lebih tinggi, {self.node_id} deklarasi diri sebagai leader")
+            print(f"[Node {self.node_id}] Tidak ada node dengan ID lebih tinggi, {self.node_id} deklarasi diri sebagai leader baru")
             self.declare_leader()
             return
 
@@ -108,10 +108,10 @@ class Node:
 
         terima_flag_ok = self.flag_ok.wait(timeout=ELECTION_TIMEOUT)
         if not terima_flag_ok:
-            print(f"[Node {self.node_id}] Tidak ada balasan OK, deklarasi diri sebagai leader")
+            print(f"[Node {self.node_id}] Tidak ada balasan OK, deklarasi diri sebagai leader baru")
             self.declare_leader()
         else:
-            print(f"[Node {self.node_id}] Ada node yang lebih tinggi masih hidup, tidak deklarasi diri sebagai leader")
+            print(f"[Node {self.node_id}] Ada node yang lebih tinggi masih hidup, tidak deklarasi diri sebagai leader baru")
 
 
     def declare_leader(self):
@@ -133,14 +133,9 @@ class Node:
             # (leader mati) dan node ini belum tahu leader baru, panggil
             # start_election().
             leader = self.leader_id
-
-            if leader == self.node_id:
-                continue  # saya sendiri leader-nya
-
-            if leader is None:
-                # belum tahu leader; mulai election jika belum berjalan
-                if not self.election_running:
-                    self.start_election()
+        
+            if leader is None or leader == self.node_id:
+                # belum tahu leader dan mulai election jika belum berjalan
                 continue
 
             port = self.peers.get(leader)
@@ -173,7 +168,6 @@ def main():
 
     while True:
         time.sleep(60)
-
 
 if __name__ == "__main__":
     main()
