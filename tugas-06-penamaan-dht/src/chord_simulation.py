@@ -46,6 +46,9 @@ class ChordRing:
         node_id = hash_id(node_name)
 
         # TODO 4: hapus node_id dari self.nodes.
+
+        del self.nodes[node_id]
+
         # TODO 5: cari successor BARU untuk tiap key yang tadinya dipegang
         # node ini, pindahkan ke successor tersebut.
         print(f"[TODO] Node '{node_name}' (id={node_id}) keluar dari ring")
@@ -56,7 +59,14 @@ class ChordRing:
         ke node dengan hash terkecil di ring (karena ring melingkar)."""
         # TODO 6: implementasikan logika successor di atas menggunakan
         # self.nodes.keys(). Kembalikan node_id (bukan IP).
-        pass
+        if not self.nodes:
+            raise ValueError("Ring Kosong: gak ada node untuk successor")
+
+        candidates = [nid for nid in self.nodes if nid >= key_hash]
+        if candidates:
+            return min(candidates)
+        # gak ada yang lebih gede, balik ke node pertama
+        return min(self.nodes.keys())
 
     def register_kurir(self, kurir_id: str, ip_kurir: str):
         """Simpan mapping ID Kurir -> IP di node yang bertanggung jawab."""
