@@ -77,7 +77,7 @@ class ChordRing:
         """Cari alamat IP terkini untuk sebuah ID Kurir."""
         key_hash = hash_id(kurir_id)
         # TODO 8: gunakan find_successor(key_hash) untuk menemukan node
-        # penanggung jawab, lalu kembalikan ip_kurir dari self.data jika ada.
+        # penanggung jawab, lalu kembalikan ip_kurir dari self.data jika ada..
         if not self.nodes:
             return None
         node_id = self.find_successor(key_hash)
