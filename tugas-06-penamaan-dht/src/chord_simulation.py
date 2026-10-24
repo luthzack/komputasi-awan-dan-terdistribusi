@@ -55,12 +55,15 @@ class ChordRing:
         node_id = hash_id(node_name)
 
         # TODO 4: hapus node_id dari self.nodes.
-
         del self.nodes[node_id]
 
         # TODO 5: cari successor BARU untuk tiap key yang tadinya dipegang
         # node ini, pindahkan ke successor tersebut.
         print(f"[TODO] Node '{node_name}' (id={node_id}) keluar dari ring")
+        if self.nodes:
+            for key_hash, (kurir_id, ip_kurir) in self.data.items():
+                successor_baru = self.find_successor(key_hash)
+                print(f"[PINDAH DATA] Kurir '{kurir_id}' (hash={key_hash}) dipindahkan ke node {successor_baru}")
 
     def find_successor(self, key_hash: int) -> int:
         """Cari node_id dengan nilai hash TERKECIL yang >= key_hash
