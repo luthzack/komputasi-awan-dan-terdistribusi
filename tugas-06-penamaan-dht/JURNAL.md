@@ -14,4 +14,5 @@
 
 | Tanggal | Tool AI | Prompt yang diberikan | Ringkasan saran/ide AI | Bagaimana diolah jadi tulisan/kode sendiri |
 |---|---|---|---|---|
-| ... | ... | ... | ... | ... |
+| 23-10-2026 | Gemini | Jelaskan konsep dari Chord DHT mulai dari penjelasan cara kerja, ada aturan apa aja, dan perbedaan node server dan node data | Gemini menjelaskan konsep dht itu peletekan server yang berurutan gitu hubungannya dan melingkar. ada aturan wrap around yang hubungan servernya itu selalu ke depan gabisa kebelakang untuk tanggung jawab memegang datannya dan pemindahan data itu ke server mana/node mana | paham alur kerja dari CHORD DHT ini dan dimanfaatkan untuk merancang kodenya |
+|  |  |  |  |  |
