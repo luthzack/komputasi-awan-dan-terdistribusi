@@ -35,3 +35,9 @@ kurir-002 -> 192.168.1.11
 |---|---|---|---|---|
 | 23-10-2026 | Gemini | Jelaskan konsep dari Chord DHT mulai dari penjelasan cara kerja, ada aturan apa aja, dan perbedaan node server dan node data | Gemini menjelaskan konsep dht itu peletekan server yang berurutan gitu hubungannya dan melingkar. ada aturan wrap around yang hubungan servernya itu selalu ke depan gabisa kebelakang untuk tanggung jawab memegang datannya dan pemindahan data itu ke server mana/node mana | paham alur kerja dari CHORD DHT ini dan dimanfaatkan untuk merancang kodenya |
 | 25-10-2026 | Deepseek  | (mengirimkan screenshoot eror) ini kenapa saat aku running kok eror ya padahal seharusnya udah bener loh  | Ai sempat memberikan saran untuk mengubah code bagian todo 8, dan udah dicoba tetep eror lalu dia meminta screenshootkan codenya dan dia kasih tau bahwa indentasi pada todo 8 perlu diperbaiki | menekan TAB untuk menambahkan spasi agar indentasinya benar |
+
+
+## Bukti diskusi
+Diskusi awal (Pemahaman tugas dan pembagian)
+![](../tugas-06-penamaan-dht/bukti/Diskusi%20Awal%20Pembagian%20tugas.png)
+
