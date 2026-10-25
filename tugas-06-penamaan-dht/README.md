@@ -80,7 +80,7 @@ Gambar 1
 ![](../tugas-06-penamaan-dht/bukti/Sebelum%20Gabung.png)
 Gambar 2
 ![](../tugas-06-penamaan-dht/bukti/Keluar%202.png)
-Di gambar 2 itu menunjukkan kalau node yang memegang sebuah data keluar maka data id_kurir akan berpindah ke node penerusnya dan node penerusnya itu adalah node yang berada di depannya, disini adalah ode 102 seperti diagram topolgy dibawah.
+Di gambar 2 itu menunjukkan kalau node yang memegang sebuah data keluar maka data id_kurir akan berpindah ke node penerusnya dan node penerusnya itu adalah node yang berada di depannya (karena melingkar dan searah jarum jam), disininode Bandung-1 dihapus kemudian penerusnya adalah node 102 (Jakarta-2) seperti diagram topolgy dibawah (ada 2 data dalam 1 node, sebelumnya cuma 1 (ketambahan dari Bandung-1)).
 ![](../tugas-06-penamaan-dht/bukti/Node%20Pemegang%20Data%20Keluar.drawio.png)
 Walaupun sebuah node saat itu tidak memegang data kurir apa pun, ketika node itu keluar, tanggung jawab simpan data yang menjadi miliknya tetap dialihkan ke node berikutnya (successor). Agar ringnya tidak terputus dan tetap berjalan.
 
