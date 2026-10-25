@@ -55,3 +55,17 @@ tugas-06-penamaan-dht/
 Kebijakan **Level 2 (AI Assisted Idea Generation & Structuring)** berlaku — lihat [`../RUBRIK-UMUM.md`](../RUBRIK-UMUM.md). Boleh bertanya konsep umum consistent hashing/Chord ke AI; **tidak boleh** meminta AI menuliskan isi `# TODO` di `src/chord_simulation.py` (`find_successor`, `join`, `leave`, dst). Catat pemakaian AI di "Log Penggunaan AI" pada `JURNAL.md`.
 
 - `README.md` wajib menelusuri manual (langkah demi langkah) bagaimana `lookup()` menemukan successor untuk salah satu ID Kurir contoh yang dipakai di `chord_simulation.py` — bukan cuma menempelkan output program.
+
+
+
+## Jelaskan **kenapa DHT/Chord** lebih cocok untuk kasus ini dibanding **flat naming sederhana** (mis. tabel pusat ID→IP) atau **DNS konvensional** — kaitkan dengan sifat "IP kurir sering berubah" dan kebutuhan tanpa titik gagal tunggal.
+
+penggunaan DHT (terutama algoritma Chord) jauh lebih unggul dibandingkan flat naming sederhana (tabel pusat) maupun DNS konvensional , ini terjadi karena (misal) buat di sistem *flat naming (tabel pusat)* semua pembaruan IP kurir dan permintaan pencarian dari pelanggan harus melalui satu server yang sama. Nah ini bisa menyebabkan bottleneck karena server harus menangani banyak permintaan sekaligus. Lalu jika server ada gangguan sistem pelacakan bisa ikut berhenti karena tidak ada server lain yang mengambil alih.
+
+Kalau *DNS KOnvensional* sendiri memang sudah terdistribusi, tetapi dia masih bergantung pada TTL dan mekanisme propagasi data. Trus apa hubungannya sama IP kurir berubah dalam waktu singkat? hubungannya adalah (misal lagi) si kuruir ganti jaringan dari wifi trus ke sinyal biasa, nah data yang tersimpan di cache bisa aja masih menggunakan IP lama. yang berakibat pelanggan memiliki resiko mendapatkan informasi alamat IP yang sudah tidak valid.
+
+Oleh karena itu, *DHT/Chord* ini bisa mengatasi masalah tersebut melalui sistem yang terdistribusi. Dengan consistent hashing, setiap ID kurir dipetakan ke node tertentu yang bertanggung jawab menyimpan informasi IP-nya. Hal ini membuat pembaruan data tidak perlu dikirim ke seluruh jaringan atau melalui server pusat dan proses pencarian IP juga dilakukan dengan menelusuri ring Chord hingga menemukan node yang menyimpan data kurir tersebut. Trus plusnya lagi tidak ada Single Point of Failure. jadif misal salah satu node mengalami gangguan, node penerus (successor) dapat mengambil alih tanggung jawab penyimpanan data sesuai mekanisme pemulihan yang diterapkan. itulaah kenpoa Chord lebih sesuai dan unggulk untuk kebutuhan pelacakan kurir yang dinamis dan terdistribusi.
+
+
+CONTIBUTOR : 
+- NAUFAL LUTHFI MUAZKKI(103072400137) : ANALISIS Jelaskan **kenapa DHT/Chord** lebih cocok untuk kasus ini dibanding **flat naming sederhana** (mis. tabel pusat ID→IP) atau **DNS konvensional** — kaitkan dengan sifat "IP kurir sering berubah" dan kebutuhan tanpa titik gagal tunggal, TODO 6, 7 , 8, dan OUTPUT
