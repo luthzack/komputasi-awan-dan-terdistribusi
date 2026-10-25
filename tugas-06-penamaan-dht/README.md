@@ -66,6 +66,35 @@ Kalau *DNS KOnvensional* sendiri memang sudah terdistribusi, tetapi dia masih be
 
 Oleh karena itu, *DHT/Chord* ini bisa mengatasi masalah tersebut melalui sistem yang terdistribusi. Dengan consistent hashing, setiap ID kurir dipetakan ke node tertentu yang bertanggung jawab menyimpan informasi IP-nya. Hal ini membuat pembaruan data tidak perlu dikirim ke seluruh jaringan atau melalui server pusat dan proses pencarian IP juga dilakukan dengan menelusuri ring Chord hingga menemukan node yang menyimpan data kurir tersebut. Trus plusnya lagi tidak ada Single Point of Failure. jadif misal salah satu node mengalami gangguan, node penerus (successor) dapat mengambil alih tanggung jawab penyimpanan data sesuai mekanisme pemulihan yang diterapkan. itulaah kenpoa Chord lebih sesuai dan unggulk untuk kebutuhan pelacakan kurir yang dinamis dan terdistribusi.
 
+## Diagram Ring Topology
+BENTUK AWAL RING TOPOLOGY
+![](../tugas-06-penamaan-dht/bukti/Topology%20Awal.png)
+BENTUK RING TOPOLOGY SETELAH NODE MEDAN 1 BERGABUNG DAN NODE JAKARTA 2 KELUAR
+![](../tugas-06-penamaan-dht/bukti/Kondisi%20node%20keluar%20dan%20masuk.drawio.png)
+BENTUK KETIKA NODE YANG MEMEGANG SEBUAH DATA KELUAR DARI RING TOPOLOGY
+![](../tugas-06-penamaan-dht/bukti/Node%20Pemegang%20Data%20Keluar.drawio.png)
+
+## Penjelasan apa yang terjadi pada mapping saat sebuah node **keluar** dari ring (siapa yang mengambil alih tanggung jawabnya) — dukung dengan output program.
+Disini saya menggunakan contoh dari kondisi tambahan (diluar skeleton) dimana node yang keluar adalah node yang memegang sebuah data (banndung-1)
+Gambar 1
+![](../tugas-06-penamaan-dht/bukti/Sebelum%20Gabung.png)
+Gambar 2
+![](../tugas-06-penamaan-dht/bukti/Keluar%202.png)
+Di gambar 2 itu menunjukkan kalau node yang memegang sebuah data keluar maka data id_kurir akan berpindah ke node penerusnya dan node penerusnya itu adalah node yang berada di depannya, disini adalah ode 102 seperti diagram topolgy dibawah.
+![](../tugas-06-penamaan-dht/bukti/Node%20Pemegang%20Data%20Keluar.drawio.png)
+Walaupun sebuah node saat itu tidak memegang data kurir apa pun, ketika node itu keluar, tanggung jawab simpan data yang menjadi miliknya tetap dialihkan ke node berikutnya (successor). Agar ringnya tidak terputus dan tetap berjalan.
+
+
+## Analisis dan menelusuri manual (langkah demi langkah) bagaimana lookup() menemukan successor untuk salah satu ID Kurir contoh yang dipakai di chord_simulation.py
+Disini saya memilih untuk menelusuri Kurir_001 id-nya 50.
+Bentuk dari ringnya adalah 40 -> 102 -> 136 -> 177 -> 40.
+Didalam fungsi lookup dilakukan:
+- Langkah 1: Mencari nilai hash Kurir-001 yaitu 50
+- Langkah 2: Cari node yang akan pegang data kurir ini dengan find_successor (cari yang node_id >= 50) (cek 40 bukan, cek 102 iya, cek 136 iya, cek 177 iya) kemudian dari id yang memenuhi syarat dicari lagi id yang terkecil yaitu 102
+- Langkah 3: Mengambil alamat IP kurir yang tersimpan pada node 102 tersebut, yaitu 192.168.1.10.
+![](../tugas-06-penamaan-dht/bukti/Sebelum%20Gabung.png)
 
 CONTIBUTOR : 
 - NAUFAL LUTHFI MUAZKKI(103072400137) : ANALISIS Jelaskan **kenapa DHT/Chord** lebih cocok untuk kasus ini dibanding **flat naming sederhana** (mis. tabel pusat ID→IP) atau **DNS konvensional** — kaitkan dengan sifat "IP kurir sering berubah" dan kebutuhan tanpa titik gagal tunggal, TODO 6, 7 , 8, dan OUTPUT
+
+- NUR RO'YUL AMIN (103072400159) : Pengerjaan TODO 1,2,3,4,5. Diagram Ring Topology, Analisis "apa yang terjadi pada mapping saat sebuah node keluar dari ring (siapa yang mengambil alih tanggung jawabnya) — dukung dengan output program." **Dan** juga "analisis dan menelusuri manual (langkah demi langkah) bagaimana lookup() menemukan successor untuk salah satu ID Kurir contoh yang dipakai di chord_simulation.py"

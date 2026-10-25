@@ -7,25 +7,29 @@
 ## Skenario join/leave
 - Hasil sebelum & sesudah node baru bergabung: 
 
-# Sebelum gabung:
-kurir-001 -> 192.168.1.10
-kurir-002 -> 192.168.1.11
-# sesudah gabung:
-[JOIN] Node 'node-medan-1' (id=45) bergabung, alamat 10.0.0.5
-kurir-001 -> 192.168.1.10
-- Hasil sebelum & sesudah node keluar: 
+### Sebelum gabung:
+id_kurir 132 bergabung dengan id_node 136, 
+id_kurir 50 bergabung dengan id_node 102,
+id_kurir 28 bergabung dengan id_noed 40.
+![](../tugas-06-penamaan-dht/bukti/Sebelum%20Gabung.png)
+### Sesudah gabung:
+Tidak ada yang berubah karena tidak ada id_kurir yang nilainya lebih kecil atau sama dengan id_node. 
+(id_kurir 132 tetap dengan id_node 136,
+id_kurir 50 tetap dengan id_node 102).
+![](../tugas-06-penamaan-dht/bukti/Setelah%20Bergabung.png)
 
-# sebelum
-kurir-001 -> 192.168.1.10
-kurir-002 -> 192.168.1.11
 
-# sesudah
-[LEAVE] Node 'node-jakarta-1' (id=177) keluar dari ring
-[PINDAH DATA] Kurir 'kurir-001' (hash=50) dipindahkan ke node 102
-[PINDAH DATA] Kurir 'kurir-002' (hash=28) dipindahkan ke node 40
-[PINDAH DATA] Kurir 'kurir-003' (hash=132) dipindahkan ke node 136
-kurir-001 -> 192.168.1.10
-kurir-002 -> 192.168.1.11
+### Sebelum keluar
+id_kurir 132 bergabung dengan id_node 136, 
+id_kurir 50 bergabung dengan id_node 102,
+id_kurir 28 bergabung dengan id_noed 40.
+![](../tugas-06-penamaan-dht/bukti/Sebelum%20Gabung.png)
+
+# Sesudah keluar
+Kondisi original skeleton. Node Jakarta 1 keluar dan tidak ada pengaruh apapun karena node ini tidak memegang data apapun, sehingga tidak ada perpindahan data
+![](../tugas-06-penamaan-dht/bukti/Keluar%201.png)
+Kondisi dimana node pemegang data keluar ring. Node Bandung 1 keluar maka id_kurir 28yang awalnya di bandung pindah ke id node 102.
+![](../tugas-06-penamaan-dht/bukti/Keluar%202.png)
 
 ## Log Penggunaan AI (Level 2)
 
@@ -40,4 +44,4 @@ kurir-002 -> 192.168.1.11
 ## Bukti diskusi
 Diskusi awal (Pemahaman tugas dan pembagian)
 ![](../tugas-06-penamaan-dht/bukti/Diskusi%20Awal%20Pembagian%20tugas.png)
-
+![](../tugas-06-penamaan-dht/bukti/Hasil%20diskusi%2025%20oktober.png)
