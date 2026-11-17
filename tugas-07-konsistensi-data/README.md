@@ -84,4 +84,9 @@ jika diimplemetasikan mungkin seperti ini
 jadi jika akai mekanisme ini, pelanggan tidak akan membaca saldo lama ketika berpindah server. Selain itu, FoodGo tetap perlu melakukan validasi dan pengurangan saldo secara atomik untuk mencegah transaksi ganda.
 
 3. Gambarkan **diagram alir urutan (sequence diagram)** yang menunjukkan operasi read/write antara pelanggan, server Jakarta, server Bandung, dan proses replikasi — untuk skenario **tanpa** jaminan konsistensi (bug terjadi) DAN skenario **dengan** solusi yang kalian usulkan (bug teratasi). Pakai Mermaid (`sequenceDiagram`) di `README.md` — lihat contoh cara pakai di Tugas 2.
+Ini adalah Sequeence untuk kasus sebelum diterapkan read-your-write
+![](../tugas-07-konsistensi-data/bukti/Sebelum.png)
+
+Ini adalah Sequence diagram untuk kasus setelah diterapkan read-yout-write
+![](../tugas-07-konsistensi-data/bukti/Solusi.png)
 
