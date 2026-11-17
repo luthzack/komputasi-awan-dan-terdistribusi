@@ -51,6 +51,10 @@ Kebijakan **Level 2 (AI Assisted Idea Generation & Structuring)** berlaku — li
 
 ---
 ### Jawaban Analasis 
+Didalam Kasus FoodGo ini alasan kenapa konsistensi data terutama untuk jumlah saldo pengguna itu harus selalu konsisten misal setelah pengguna melakukan top up dan akan melakukan transaksi atau melihat jumlah saldo setelah melakukan transaksi ialah:
+- transaksi pembayaran bisa ditolak karena sistem menganggap pengguna ini saldonya kurang padahal sudah top up
+
+hal ini bisa berdampak ke pelanggan yang merasa panik dan tertipu sehinga reputasi foodgo menurun dan pengguna kehilangan kepercayaan, jika sistem tetap membiarkan data berbeda, pengguna juga berpotensi memakai saldo yang sama lebih dari sekali (double spending) sebelum pemotongan saldo tersinkron, yang berujung pada kerugian finansial bagi perusahaan. Data jumlah saldo  pelanggan ini sangat krusial  dan menuntut konsistensi yang ketat agar pengguna foodgo merasa aman saat bertransaksi. Untuk menjawab pertanyaan tugas 07 dilanjutkan oleh analisis teman saya:
 
 1. Tentukan: apakah kasus ini **membutuhkan Sequential Consistency** (semua replika melihat urutan operasi yang sama) atau **cukup Eventual Consistency** (replika akan konsisten "pada akhirnya", boleh sementara berbeda)? Berikan argumen berbasis dampak bisnis (mis. kasus saldo *e-wallet* jauh lebih sensitif dibanding kasus "jumlah like" di media sosial).
 
