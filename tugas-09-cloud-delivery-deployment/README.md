@@ -21,72 +21,38 @@ Pemerintah ingin membangun **Sistem Data Kependudukan** (nama, NIK, alamat, data
 ## Jawaban
 ### 1. Rekomendasi Deployment Model
 
-#### Rekomendasi: **Hybrid Cloud** (inti Private Cloud milik negara)
+#### Rekomendasi: **Hybrid Cloud** 
 
-- **Private Cloud pemerintah** → menyimpan dan memproses data inti (NIK, biometrik, alamat) di bawah kendali penuh negara.
-- **Public Cloud** (idealnya dengan region di Indonesia) → melayani lapisan akses (API gateway, portal verifikasi, cache non-sensitif) agar bisa melonjak saat pemilu atau pendaftaran sekolah.
+Deployment Model yang paling sesuai untuk Sistem Data Kependudukan adalah Hybrid Cloud, yaitu kombinasi Private Cloud yang dikendalikan pemerintah dan Public Cloud sebagai infrastruktur pendukung.
 
-### 2. Perbandingan Deployment Model
+Pemilihan Hybrid Cloud didasarkan pada kebutuhan sistem untuk menjaga kerahasiaan data kependudukan sekaligus menghadapi pola akses yang fluktuatif dari ribuan instansi. Data seperti NIK, nama, alamat, dan biometrik harus tetap disimpan dan diproses pada Private Cloud agar berada dalam kendali penuh negara. Sementara itu, Public Cloud digunakan untuk menangani layanan non-sensitif yang membutuhkan kapasitas elastis, seperti portal informasi dan distribusi konten publik.
 
-| Model | Kelebihan | Kekurangan untuk kasus ini |
-|---|---|---|
-| **Public** | Elastis, biaya rendah | Data biometrik berada di infrastruktur pihak ketiga, bertentangan dengan syarat "terkendali penuh negara" |
-| **Private** | Kontrol dan kerahasiaan maksimal | Kapasitas harus disediakan untuk beban puncak (mahal), tetap berisiko downtime saat lonjakan melebihi kapasitas |
-| **Community** | Cocok untuk instansi dengan kepentingan bersama | Pengguna (dukcapil, polisi, bank) tidak berbagi satu komunitas setara; bank adalah pihak swasta |
-| **Hybrid** ✅ | Kontrol data + elastisitas | Integrasi dan keamanan antar-lingkungan lebih kompleks (dapat dimitigasi) |
+Sebagai contoh, ketika memasuki musim pendaftaran sekolah, peningkatan pengunjung portal informasi dapat ditangani melalui penambahan kapasitas otomatis pada Public Cloud. Namun, permintaan verifikasi NIK tetap diproses pada Private Cloud sehingga data pribadi tidak berpindah ke infrastruktur pihak ketiga.
 
-### 3. Analisis Berdasarkan Karakteristik NIST SP 800-145
+### Analisis Berdasarkan Karakteristik NIST 
 
-| Karakteristik | Kebutuhan Sistem | Penerapan pada Hybrid Cloud |
-|---|---|---|
-| **On-demand self-service** | Ribuan instansi perlu onboarding cepat | Portal self-service untuk registrasi instansi, penerbitan API key, dan pengaturan kuota. Provisioning otomatis, persetujuan akses tetap diverifikasi pemerintah. |
-| **Broad network access** | Diakses dukcapil daerah, polisi, bank dari banyak lokasi | API terstandar (REST/HTTPS) melalui API gateway. Instansi kritis memakai jalur privat (VPN/leased line); akses publik wajib mTLS dan autentikasi kuat. |
-| **Resource pooling** | Sumber daya dipakai bersama banyak instansi | Multi-tenancy dengan isolasi ketat per instansi. Pool di Public Cloud hanya memproses data non-sensitif atau data yang sudah di-tokenisasi. |
-| **Rapid elasticity** | Lonjakan saat pemilu dan pendaftaran sekolah | **Cloud bursting**: beban dasar di Private Cloud, kelebihan beban diteruskan ke Public Cloud lewat auto-scaling pada lapisan aplikasi dan cache. |
-| **Measured service** | Akuntabilitas pemakaian dan audit | Metering per instansi (jumlah query, bandwidth) untuk kuota/penagihan, serta **audit trail** siapa mengakses NIK siapa (kepatuhan UU PDP). |
-
-### 4. Pembagian Beban Kerja (Workload Placement)
-
-#### Private Cloud (kerahasiaan)
-
-- Database kependudukan dan biometrik
-- Layanan pencocokan biometrik
-- Manajemen kunci enkripsi (HSM) dan log audit
-
-#### Public Cloud (skalabilitas)
-
-- API gateway, load balancer, rate limiting
-- Cache respons non-sensitif dan portal informasi
-- Antrean permintaan saat lonjakan
-
-### 5. Titik Tegang: Kerahasiaan vs Skalabilitas
-
-| Tuntutan | Kecenderungan arsitektur |
+| Karakteristik | Penerapan pada Sistem Data Kependudukan |
 |---|---|
-| Kerahasiaan: data tidak boleh keluar dari kendali negara | Condong ke **Private** |
-| Skalabilitas: kapasitas elastis dan murah | Condong ke **Public** |
+| **On-demand self-service** |Pemerintah dapat menambah VM dan kapasitas penyimpanan secara mandiri tanpa intervensi manual penyedia cloud, sementara akses data sensitif tetap dikendalikan negara |
+| **Broad network access** | Dukcapil, kepolisian, dan bank mengakses layanan verifikasi melalui API dan koneksi aman sesuai kewenangan masing-masing |
+| **Resource pooling** | Sumber daya server dan penyimpanan digunakan bersama oleh berbagai layanan dengan isolasi antarinstansi, sedangkan data sensitif tetap berada di Private Cloud |
+| **Rapid elasticity** | Auto-scaling pada Public Cloud menangani lonjakan trafik non-sensitif saat pemilu atau pendaftaran sekolah, sementara kapasitas verifikasi ditingkatkan di Private Cloud |
+| **Measured service** | Penggunaan CPU, storage, bandwidth, dan jumlah permintaan setiap instansi diukur untuk mengatur kuota, kapasitas, dan biaya operasional |
 
-**Solusi Hybrid:** memisahkan *data* (tetap di private) dari *beban komputasi akses* (elastis di public). Rapid elasticity hanya diterapkan pada lapisan yang tidak menyimpan data sensitif, sehingga risiko kebocoran tetap terkendali.
+### 2.
 
----
+### 3. Secara flexibilitas memang hybrid Cloud dapat diandalkan dalam mengeleola sumber daya, tetapi Hybrid Cloud masih terdapat risiko
+|Resiko| Penjelasan | Mitigasi |
+|---|---|---|
+|Kebocoran Data|Kesalahan waktu konfigurasi jaringan atau integrasi layanan bisa menyebabkan data sensitif seperti NIK dan biometrik terekspos ke Public Cloud| Dapat dilakukannya penerapan segmentasi jaringan, enkripsi, kontrol akses berbasis peran (RBAC), memastikan data sensitif hanya disimpan dan diproses pada Private Cloud |
+|Terjadinya Bottleneck pada Private Cloud|misal waktu musim pemilu atau pendaftaran sekolah, pastinya trafic akan naik dan lonjakan permintaan verifikasi identitas tetap membebani database inti meskipun Public Cloud telah melakukan auto-scaling|Menerapkan load balancing dan rate limiting untuk mengendalikan jumlah permintaan dari setiap instansi|
+|Gangguan konektivitas antar-cloud|Gangguan jaringan antara Private Cloud dan Public Cloud dapat menghambat layanan yang membutuhkan komunikasi antarlingkungan| mungkin dapat disdiakannya jalur koneksi cadangan (redundant connection), mekanisme failover, dan pemantauan jaringan secara berkala |
 
-### 6. Mitigasi Risiko Hybrid
+### 4. Yang tidak kami pilih adalah menggunakan Murni Private Cloud,mengapa?
 
-1. **Enkripsi** data at-rest dan in-transit, dengan kunci dipegang pemerintah.
-2. **Tokenisasi/pseudonimisasi** bila data harus melintas ke public.
-3. **Zero-trust** dan segmentasi jaringan antar-lingkungan.
-4. **Data minimization:** instansi (misalnya bank untuk KYC) hanya menerima jawaban verifikasi (cocok/tidak cocok), bukan data mentah.
-5. **Residensi data** di wilayah Indonesia sesuai regulasi.
+A. Secara kerahasiaan jika menggunakan Private Cloud Seluruh data berada dalam lingkungan yang dikendalikan negara,memang terlihat sama kyk Hybrid Cloud namun, dengan hybrid Cloud dapat memberikan keamanan plus untuk memastikan data sensitif tetap disimpan dan diproses pada Private Cloud.
 
----
-
-### 7. Kesimpulan
-
-**Hybrid Cloud berbasis Private Cloud pemerintah** adalah pilihan paling tepat karena:
-
-- Kelima karakteristik NIST terpenuhi.
-- Kontrol penuh atas data rahasia tetap terjaga.
-- Lonjakan akses musiman ditangani lewat cloud bursting pada lapisan non-sensitif.
+B. Private Cloud dapat melakukan scaling, tetapi terbatas pada kapasitas infrastruktur yang tersedia. Sementara Hybrid Cloud, dia dapat memanfaatkan elastisitas Public Cloud untuk menangani lonjakan akses pada layanan non-sensitif, terutama saat musim pemilu atau pendaftaran sekolah tiba.
 
 ---
 
