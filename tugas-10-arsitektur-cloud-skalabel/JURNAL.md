@@ -1,4 +1,4 @@
-# Jurnal Proses — Tugas 10
+﻿# Jurnal Proses â€” Tugas 10
 
 ## Setup Nginx & multi-instance
 - Kendala saat konfigurasi upstream: *[Diisi oleh anggota bagian Nginx/Docker Compose]*
@@ -14,13 +14,10 @@
 
 ## Log Penggunaan AI (Level 2)
 
-> Wajib diisi sesuai kebijakan Level 2 di [`../RUBRIK-UMUM.md`](../RUBRIK-UMUM.md). Tulis "Tidak memakai AI" pada baris pertama jika memang tidak dipakai. Hanya untuk brainstorming ide/outline – bukan untuk kode/analisis/teks akhir.
+> Wajib diisi sesuai kebijakan Level 2 di [`../RUBRIK-UMUM.md`](../RUBRIK-UMUM.md). Tulis "Tidak memakai AI" pada baris pertama jika memang tidak dipakai. Hanya untuk brainstorming ide/outline â€“ bukan untuk kode/analisis/teks akhir.
 
 | Tanggal | Tool AI | Prompt yang diberikan | Ringkasan saran/ide AI | Bagaimana diolah jadi tulisan/kode sendiri |
 |---|---|---|---|---|
-<<<<<<< HEAD
 |28/11/2026| chatgpt | apakah ada cara lain yang lebih efisien secara waktu untuk membatasi concurency? | chatgpt menyarankan menggunakan semaphore | memanggil semaphore, semaphore = threading.Semaphore(CONCURRENCY) |
-=======
 | 2026-11-27 | Gemini | Diskusi alur melengkapi `INSTANCE_ID` pada `app/app.py` port 8000, cara membatasi resource CPU/RAM untuk simulasi Vertical Scaling, serta kerangka poin perbandingan Vertical vs Horizontal Scaling | Menjelaskan cara membaca `INSTANCE_ID` dari environment variable, penggunaan flag `--cpus` dan `--memory` pada Docker untuk 1 instance besar, serta garis besar poin teknis seperti antrean koneksi tunggal dan *Single Point of Failure* | Mengimplementasikan langsung `INSTANCE_ID` pada `app/app.py` di port 8000, menguji secara lokal, menjalankan load test Vertical Scaling secara mandiri, dan menyusun catatan hasil serta analisis berdasarkan angka eksperimen sendiri |
 | ... | ... | ... | ... | ... |
->>>>>>> origin/Naufal
