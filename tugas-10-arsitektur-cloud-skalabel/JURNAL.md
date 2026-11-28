@@ -18,4 +18,4 @@
 
 | Tanggal | Tool AI | Prompt yang diberikan | Ringkasan saran/ide AI | Bagaimana diolah jadi tulisan/kode sendiri |
 |---|---|---|---|---|
-| ... | ... | ... | ... | ... |
+|28/11/2026| chatgpt | apakah ada cara lain yang lebih efisien secara waktu untuk membatasi concurency? | chatgpt menyarankan menggunakan semaphore | memanggil semaphore, semaphore = threading.Semaphore(CONCURRENCY) |
